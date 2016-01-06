@@ -1,0 +1,6 @@
+{
+    "stringletTemplate" = "<div class=\"content\"> <div class=\"content-iota\"> {{ content.content }} </div> </div>",
+    "imageTemplate" = "<div class=\"image-screen\" ng-click=\"expandImage(content.content)\"></div><img class=\"content-image\" src=\"{{ content.content }}\">",
+    "videoTemplate" = "",
+    "urlTemplate" = ""
+}

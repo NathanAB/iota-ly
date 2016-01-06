@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="iotaModule">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>iota</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Didact+Gothic&subset=latin,greek' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/genericons/genericons.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="favicon" href="img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300" rel="stylesheet" type="text/css">
+
+    <!-- SPELLS -->
+    <script src="static/js/external/jquery.min.js"></script><!-- load jquery -->
+    <script src="static/js/external/angular.min.js"></script><!-- load angular -->
+    <script src="static/js/index.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body>
+    <div class="container">
+
+		<div class="header">
+			
+			<div class="header-left desktop">
+				<ul>
+					<li><a href="http://blog.iota.ly" class="hover-solid desktop">blog</a></li>
+				</ul>
+			</div>
+			
+			<div class="header-right">
+				<ul>
+					<li><a href="logout" class="hover-solid">logout</a></li>
+					<li><a href="http://blog.iota.ly" class="hover-solid mobile">blog</a></li>
+				</ul>
+			</div>
+			<div class="header-center">
+				<div class="title"><a class="hover-pink" href="/">ιota</a></div>
+				<div class="subtitle">beta</div>
+			</div>
+		</div><!-- header -->
+
+		
+		<div class="left-bar">
+			<div class="groups-title">
+				<span id="email"></span>
+			</div>
+			<br />
+			<div id="download-images">
+				<a href="/iota-images.zip"><span class="hover-pink genericon genericon-cloud-download"></span></a>
+			</div>
+		</div><!-- left-bar -->
+			
+		<div class="right-bar">
+			<span class="search-bar">
+              <input type="search" class="text-field" id="search" placeholder="Search" 
+                autocomplete="off">
+            </span>
+            <div class="search-results"></div>
+		</div><!-- right-bar -->
+		
+		<div class="contents" ng-controller="mainController">
+			<div class="post-iota">
+				<textarea class="post-iota-field"></textarea>
+				<span id="post-iota-button" class="genericon genericon-plus hover-pink post-iota-button" onclick="postIotaBox()"></span>
+				<span id="confirm-iota-button" class="hover-solid post-iota-button" onclick="confirmIota()"><strong>Save</strong></span>
+			</div>
+            <!-- LOOP OVER THE TODOS IN $scope.contents -->
+            <content-item ng-repeat="content in contents" content="content" class="content-box" ng-class="{true: 'content-half', false: 'content-full'}[content.half]"></content-item>
+            
+		</div><!-- contents -->'
+		<br />
+		<div class="loading hidden">loading content...</div>
+	</div>
+</body>
+</html>
