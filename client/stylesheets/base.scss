@@ -1,0 +1,46 @@
+// Colors
+$lightestGrey: #F5F5F5;
+$lighterGrey: #D1D1D1;
+$lightGrey: #C5C5C5;
+$grey: #A5A5A5;
+$darkGrey: #858585;
+
+$textGrey: #353535;
+
+$lightPink: #dda1ae;
+$pink: #cb6f83;
+$darkPink: #bb445e;
+
+$white: #FFFFFF;
+
+// Skeleton CSS framework
+@import "skeleton/normalize";
+@import "skeleton/skeleton";
+@import "font-awesome/font-awesome";
+@import "iota/header";
+
+// Base CSS
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+
+body {
+  background-color: #FAFAFA;
+}
+
+input:focus {
+  border-color: $pink !important;
+}
+a {
+  color: $pink;
+  text-decoration: none;
+  &:hover {
+    color: $darkPink;
+  }
+}
