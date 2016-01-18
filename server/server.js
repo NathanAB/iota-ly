@@ -136,7 +136,7 @@ app.get('*', function(req, res) {
     if(req.user) {
         if(req.url === "/"){
             //console.log(req.user);
-            return writePage(res, "client/index.html");
+            return writePage(res, "public/index.html");
         }
     
         var stringlet = req.url.slice(1);
@@ -151,7 +151,7 @@ app.get('*', function(req, res) {
     } else {
         // No user logged in, check whether to do a content-login
         if(req.url === "/"){
-            return writePage(res, "client/login.html");
+            return writePage(res, "public/login.html");
         } else {
             //TODO Write post content after login prompt
             res.redirect('/');
