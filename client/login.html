@@ -30,17 +30,26 @@
       </div>
       <br />
       <form class="login-form" action="login" method="post">
-        <input class="text-field" type="text" name="username" placeholder="EMAIL" required>
-        <input class="text-field" type="password" name="password" placeholder="PASSWORD" required>
+        <input class="text-field" id="email" type="text" name="username" placeholder="EMAIL" required>
+        <input class="text-field" id="password" type="password" name="password" placeholder="PASSWORD" required>
         <a href="#"><input type="submit" class="pink-button" value="login"></a>
       </form>
+      <div class="login-error" id="loginError">Error</div>
       <div class="login-options">
         <a class="hover-solid" href="register">register</a>
-        <!--<a class="menu-option" href="about">What is iota?</a>-->
       </div>
-  
     </div>
-  
   </body>
-
+  
+  <script src="static/js/external/jquery.min.js"></script>
+  <script src="static/js/util.js"></script>
+  <script>
+    $(".login-form").submit(function(e) {      
+      if(!validateLogin($("#email").val(), $("#password").val())){
+        e.preventDefault();
+        return;
+      }
+    });
+  </script>
+  
 </html>
