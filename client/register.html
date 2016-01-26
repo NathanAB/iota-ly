@@ -44,7 +44,7 @@
   <script src="static/js/util.js"></script>
   <script>
     $(".login-form").submit(function(e) {      
-      if(!validateRegistration($("#email").val(), $("#password").val(), $("#confirm"))){
+      if(!validateRegistration($("#email").val(), $("#password").val(), $("#confirm").val())){
         e.preventDefault();
         return;
       }

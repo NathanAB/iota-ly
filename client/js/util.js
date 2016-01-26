@@ -31,9 +31,10 @@ function validateRegistration(email, password, confirm){
   } else if(password.length < minChar || password.length > maxChar) {
     $('#loginError').html("Password must be between " + minChar + " and " + maxChar + " characters");
   } else if(password != confirm){
+    console.log(password + " " + confirm)
     $('#loginError').html("Passwords must match");
-  } else if(!validPassword(email) || !validPassword(password)){
-    $('#loginError').html("Username or password contains invalid characters");
+  } else if(!validEmail(email) || !validPassword(password)){
+    $('#loginError').html("Email or password contains invalid characters");
   } else {
     return true;
   }
