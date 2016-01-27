@@ -110,12 +110,10 @@ app.get('/register', function(req, res) {
 app.post('/register', function(req, res) {
     Account.register(new Account({ username : req.body.email }), req.body.password, function(err, account) {
         if (err) {
-            //TODO Send back errors
-            //return writePage(res, "client/register.html");
-            //res.json({success: false, reason: (err)});
-            return writePage(res, "client/register.html");
+            res.json({success: false, reason: err});
+        } else {
+          res.json({success: true});
         }
-        res.redirect('/');
     });
 });
 

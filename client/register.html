@@ -43,10 +43,20 @@
   <script src="static/js/external/jquery.min.js"></script>
   <script src="static/js/util.js"></script>
   <script>
-    $(".login-form").submit(function(e) {      
-      if(!validateRegistration($("#email").val(), $("#password").val(), $("#confirm").val())){
-        e.preventDefault();
-        return;
+    $(".login-form").submit(function(e) {            
+      e.preventDefault();
+      if(validateRegistration($("#email").val(), $("#password").val(), $("#confirm").val())){
+        $.post('register', {
+          email: $("#email").val(),
+          password: $("#password").val()
+        }).done(function (result) {
+          if(result.success){
+            window.location.replace('/');
+          } else {
+            $('#loginError').html(result.reason.message);
+            $('#loginError').css("visibility", "visible");
+          }
+        });
       }
     });
   </script>
