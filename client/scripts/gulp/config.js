@@ -19,7 +19,8 @@ module.exports = {
     dest: 'public/js',
     options: {
       output: {
-        filename: 'app.js'
+        filename: 'app.js',
+        library: 'iota'
       }
     }
   },

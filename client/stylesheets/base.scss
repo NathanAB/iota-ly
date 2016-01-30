@@ -1,5 +1,6 @@
 // Colors
-$lightestGrey: #F5F5F5;
+$lightestGrey: #FAFAFA;
+$bgGrey: #F5F5F5;
 $lighterGrey: #D1D1D1;
 $lightGrey: #C5C5C5;
 $grey: #A5A5A5;
@@ -16,7 +17,14 @@ $white: #FFFFFF;
 // Skeleton CSS framework
 @import "skeleton/normalize";
 @import "skeleton/skeleton";
+
+// Iota
+@import "iota/mixins";
 @import "iota/header";
+@import "iota/login-view";
+
+// Font
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,greek);
 
 // Base CSS
 .left {
@@ -30,16 +38,57 @@ $white: #FFFFFF;
 }
 
 body {
-  background-color: #FAFAFA;
+  background-color: $bgGrey;
+  font-family: 'Didact Gothic', sans-serif;
 }
 
 input:focus {
   border-color: $pink !important;
 }
+
 a {
+  cursor: pointer;
   color: $pink;
   text-decoration: none;
+  @include transition(color 0.2s);
+
   &:hover {
     color: $darkPink;
+    @include transition(color 0.2s);
   }
+}
+
+.button-primary {
+
+  background-color: $pink !important;
+  border-color: $pink !important;
+  @include transition(background-color 0.2s);
+
+  &:hover {
+    background-color: $darkPink !important;
+    @include transition(background-color 0.2s);
+  }
+
+}
+
+#cover {
+  // Make this a gradient maybe
+  background-color: $bgGrey;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+// Move to new file
+.loading {
+  color: $pink;
+  position: absolute;
+  top: calc(50% - 30px);
+  text-align: center;
+  left: 0;
+  right: 0;
 }

@@ -102,11 +102,6 @@ app.delete('/api/contents/:content_id', function(req, res) {
 });
 
 /* Routes */
-
-app.get('/register', function(req, res) {
-    return writePage(res, "client/register.html");
-});
-
 app.post('/register', function(req, res) {
     Account.register(new Account({ username : req.body.email }), req.body.password, function(err, account) {
         if (err) {
@@ -118,17 +113,8 @@ app.post('/register', function(req, res) {
     });
 });
 
-app.get('/login', function(req, res) {
-    return writePage(res, "client/login.html");
-});
-
 app.post('/login', passport.authenticate('local'), function(req, res, next) {
     //TODO Send back errors
-    res.redirect('/');
-});
-
-app.get('/logout', function(req, res) {
-    req.logout();
     res.redirect('/');
 });
 
