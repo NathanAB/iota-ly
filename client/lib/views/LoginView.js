@@ -36,10 +36,11 @@ var LoginView = Marionette.ItemView.extend({
       password: password
     };
 
-    // App.UserSession.login(creds)
-    //   .then(function() {
-
-    //   });
+    App.UserSession.login(creds)
+      .then(function(token) {
+      })
+      .catch(function(err) {
+      });
 
     return false;
   },
@@ -58,10 +59,11 @@ var LoginView = Marionette.ItemView.extend({
       password2: password2
     };
 
-    // App.UserSession.register(creds)
-    //   .then(function() {
-
-    //   });
+    App.UserSession.register(creds)
+      .then(function(token) {
+      })
+      .catch(function(err) {
+      });
 
     return false;
   }
