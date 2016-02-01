@@ -5,6 +5,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var uriString = process.env.MONGOLAB_URI || 'mongodb://localhost/myapp'
 var connection = mongoose.createConnection(uriString);
 
+
 /* Data Model */
 
 var Schema = mongoose.Schema

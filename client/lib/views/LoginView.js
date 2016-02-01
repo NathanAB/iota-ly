@@ -12,6 +12,14 @@ var LoginView = Marionette.ItemView.extend({
     'submit .register-form': '_register'
   },
 
+  onBeforeShow: function() {
+    this.$el.hide();
+  },
+
+  onShow: function() {
+    this.$el.fadeIn();
+  },
+
   _showRegister: function() {
     this.$el.find('.login-body').fadeOut('fast', function() {
       this.$el.find('.register-body').fadeIn('fast');

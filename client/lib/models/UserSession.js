@@ -25,7 +25,7 @@ var UserSession = Backbone.Model.extend({
             logger.info('Login success.');
             resolve(res.body);
           } else {
-            logger.error('Login failed.', res.body);
+            logger.error('Login failed.', res);
             reject(res.body);
           }
         })
