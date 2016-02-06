@@ -106,6 +106,16 @@ app.delete('/api/contents/:content_id', function(req, res) {
   });
 });
 
+app.post('/register', function(req, res) {
+  Account.register(new Account({ username : req.body.email }), req.body.password, function(err, account) {
+      if (err) {
+          res.json({success: false, reason: err});
+      } else {
+        res.json({success: true});
+      }
+  });
+});
+
 /* Routes */
 app.post('/register', function(req, res) {
   Account.register(new Account({

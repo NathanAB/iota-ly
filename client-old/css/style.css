@@ -812,6 +812,13 @@ body {
   text-align: center;
 }
 
+.login-error{
+  color: red;
+  visibility: hidden;
+  font-size : 12px;
+  text-align: center;
+}
+
 @media all and (max-width: 1000px) {
   .login-button {
     line-height: 40px;

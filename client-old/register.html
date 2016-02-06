@@ -33,29 +33,32 @@
         <div><input class="text-field" type="text" id="email" name="email" placeholder="EMAIL" required></div>
         <div><input class="text-field" type="password" id="password" name="password" placeholder="PASSWORD" required></div>
         <div><input class="text-field" type="password" id="confirm" name="confirm" placeholder="CONFIRM PASSWORD" required></div>
+        <div class="login-error" id="loginError">Error</div>
         <a href="#"><input type="submit" class="pink-button" value="register"></a>
       </form>
-  
     </div>
   
   </body>
 
   <script src="static/js/external/jquery.min.js"></script>
+  <script src="static/js/util.js"></script>
   <script>
-
-    $(".login-form").submit(function(e) {
-      if($("#password").val() !== $("#confirm").val()) {
-        alert("Passwords do not match.");
-        e.preventDefault();
-        return;
+    $(".login-form").submit(function(e) {            
+      e.preventDefault();
+      if(validateRegistration($("#email").val(), $("#password").val(), $("#confirm").val())){
+        $.post('register', {
+          email: $("#email").val(),
+          password: $("#password").val()
+        }).done(function (result) {
+          if(result.success){
+            window.location.replace('/');
+          } else {
+            $('#loginError').html(result.reason.message);
+            $('#loginError').css("visibility", "visible");
+          }
+        });
       }
-      
-      if($("#email").val().indexOf("@") >= $("#email").val().indexOf(".")) {
-        alert("Not valid email.");
-        e.preventDefault();
-        return;
-      }
-    })
+    });
   </script>
 
 </html>
