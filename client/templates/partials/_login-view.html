@@ -1,9 +1,11 @@
 <script id="login-view" type="text/template">
   <div class="container">
     <div class="login">
+
       <div class="login-header">
         <h2><a href="/">ιota</a></h2>
       </div>
+
       <div class="login-body">
         <form class="login-form">
           <input class="u-full-width email-input" name="email" type="email" placeholder="email" required>
@@ -14,6 +16,7 @@
           <p>First time here? <a class="show-register">Get started now.</a></p>
         </div>
       </div>
+
       <div class="register-body" style="display: none;">
         <form class="register-form">
           <input class="u-full-width email-input" name="email" type="email" placeholder="email" required>
@@ -25,6 +28,11 @@
           <p><a class="show-login">Back</a></p>
         </div>
       </div>
+
+      <div class="request-process" style="display: none;">
+        <h5>Submitting...</h5>
+      </div>
+
     </div>
   </div>
 </script>

@@ -20,7 +20,12 @@ var UserSession = Backbone.Model.extend({
       request
         .post('/login')
         .send(creds)
-        .end(function(res) {
+        .end(function(err, res) {
+          if(err) {
+            logger.error('Login failed.', err);
+            return reject(err);
+          }
+
           if(res.status === 200) {
             logger.info('Login success.');
             resolve(res.body);
@@ -28,10 +33,6 @@ var UserSession = Backbone.Model.extend({
             logger.error('Login failed.', res);
             reject(res.body);
           }
-        })
-        .fail(function(err) {
-          logger.error('Login failed.', err);
-          reject(err);
         });
 
     });

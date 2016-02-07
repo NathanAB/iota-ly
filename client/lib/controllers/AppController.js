@@ -15,11 +15,16 @@ var AppController = Marionette.Object.extend({
   start: function() {
 
     if(App.UserSession.isLoggedIn()) {
-      return $('#cover').fadeOut();
+      return this.showMainContent();
     } else {
       App.coverRegion.show(new LoginView());
+      this.on('login:success', this.showMainContent);
     }
 
+  },
+
+  showMainContent: function() {
+    $('#cover').fadeOut();
   }
 
 });

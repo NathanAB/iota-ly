@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
+var logger = require('loglevel');
 
 var LoginView = Marionette.ItemView.extend({
 
@@ -33,6 +34,7 @@ var LoginView = Marionette.ItemView.extend({
   },
 
   _login: function(e) {
+    var self = this;
     e.preventDefault();
 
     var $form = $(e.target);
@@ -40,17 +42,30 @@ var LoginView = Marionette.ItemView.extend({
     var password = $form.find('.password-input').val();
 
     var creds = {
-      email: email,
+      username: email,
       password: password
     };
 
-    App.UserSession.login(creds)
-      .then(function(token) {
-      })
-      .catch(function(err) {
-      });
+    this.$el.find('.login-body').slideUp('fast');
+    self.$el.find('.request-process').slideDown('fast', function() {
+      self._sendLoginRequest(creds);
+    });
 
     return false;
+  },
+
+  _sendLoginRequest: function(creds) {
+    var self = this;
+    App.UserSession.login(creds)
+      .then(function(token) {
+        this.trigger('login:success');
+      })
+      .catch(function(err) {
+        logger.error(err);
+        self.$el.find('.request-process').slideUp('fast', function() {
+        });
+        self.$el.find('.login-body').slideDown('fast');
+      });
   },
 
   _register: function(e) {
@@ -59,12 +74,10 @@ var LoginView = Marionette.ItemView.extend({
     var $form = $(e.target);
     var email = $form.find('.email-input').val();
     var password = $form.find('.password-input').val();
-    var password2 = $form.find('.password2-input').val();
 
     var creds = {
-      email: email,
-      password: password,
-      password2: password2
+      username: email,
+      password: password
     };
 
     App.UserSession.register(creds)
