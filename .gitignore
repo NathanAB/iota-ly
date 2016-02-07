@@ -1,3 +1,5 @@
 /server/config.json
 node_modules
 public
+npm-debug.log
+server/sessionKeys.json
