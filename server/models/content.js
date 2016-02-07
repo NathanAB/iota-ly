@@ -1,6 +1,13 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+var mongoose = require('mongoose');
+var imgur = require('imgur-node-api');
+var request = require('request');
+var cheerio = require('cheerio');
+var q = require('q');
+var config = require('../config.json');
+
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+imgur.setClientID(config.imgurClientID);
 
 /* Schema */
 var contentSchema = new Schema({
@@ -52,6 +59,7 @@ Content.post = function(userid, stringlet, cb) {
 };
 
 /* Helper Functions */
+//TODO: Push these out to a util file??
 function convertStringlet(userid, stringlet, cb){
   var data = {};
   
@@ -72,10 +80,31 @@ function convertStringlet(userid, stringlet, cb){
 }
 
 function isImage(stringlet) {
-  if (stringlet.indexOf(".jpg") > -1 || stringlet.indexOf(".jpeg") > -1 || stringlet.indexOf(".gif") > -1 || stringlet.indexOf(".png") > -1)
+  if (stringlet.indexOf(".jpg") > -1 || stringlet.indexOf(".jpeg") > -1 || 
+      stringlet.indexOf(".gif") > -1 || stringlet.indexOf(".png") > -1)
     return true;
   else
     return false;
+}
+
+function isVideo(stringlet){
+  
+}
+
+function isURL(stringlet){
+  
+}
+
+function toImageContent(userid, stringlet){
+  
+}
+
+function toVideoContent(userid, stringlet){
+
+}
+
+function toURLContent(userid, stringlet){
+  
 }
 
 module.exports = Content
