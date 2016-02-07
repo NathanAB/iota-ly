@@ -46,7 +46,12 @@ var UserSession = Backbone.Model.extend({
       request
         .post('/register')
         .send(creds)
-        .end(function(res) {
+        .end(function(err, res) {
+          if(err) {
+            logger.error('Login failed.', err);
+            return reject(err);
+          }
+
           if(res.status === 200) {
             logger.info('Register success.');
             resolve(res.body);
@@ -54,10 +59,6 @@ var UserSession = Backbone.Model.extend({
             logger.error('Register failed.', res);
             reject(res.body);
           }
-        })
-        .fail(function(err) {
-          logger.error('Register failed.', err);
-          reject(err);
         });
 
     });

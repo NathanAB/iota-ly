@@ -19,59 +19,48 @@ var LoginView = Marionette.ItemView.extend({
 
   onShow: function() {
     this.$el.fadeIn();
+    this.$loginContent = this.$el.find('.login-content');
+    this.$registerBody = this.$el.find('.register-body');
+    this.$loginBody = this.$el.find('.login-body');
+    this.$requestProcess = this.$el.find('.request-process');
+    this.$requestResult = this.$el.find('.request-result');
   },
 
   _showRegister: function() {
-    this.$el.find('.login-body').fadeOut('fast', function() {
-      this.$el.find('.register-body').fadeIn('fast');
+    this.$loginBody.fadeOut('fast', function() {
+      this._clearRequestResult();
+      this.$registerBody.fadeIn('fast');
     }.bind(this));
   },
 
   _showLogin: function() {
-    this.$el.find('.register-body').fadeOut('fast', function() {
-      this.$el.find('.login-body').fadeIn('fast');
+    this.$registerBody.fadeOut('fast', function() {
+      this._clearRequestResult();
+      this.$loginBody.fadeIn('fast');
     }.bind(this));
   },
 
   _login: function(e) {
-    var self = this;
     e.preventDefault();
 
     var $form = $(e.target);
-    var email = $form.find('.email-input').val();
-    var password = $form.find('.password-input').val();
-
-    var creds = {
-      username: email,
-      password: password
-    };
-
-    this.$el.find('.login-body').slideUp('fast');
-    self.$el.find('.request-process').slideDown('fast', function() {
-      self._sendLoginRequest(creds);
-    });
+    this._auth($form, App.UserSession.login);
 
     return false;
   },
 
-  _sendLoginRequest: function(creds) {
-    var self = this;
-    App.UserSession.login(creds)
-      .then(function(token) {
-        this.trigger('login:success');
-      })
-      .catch(function(err) {
-        logger.error(err);
-        self.$el.find('.request-process').slideUp('fast', function() {
-        });
-        self.$el.find('.login-body').slideDown('fast');
-      });
-  },
 
   _register: function(e) {
     e.preventDefault();
 
     var $form = $(e.target);
+    this._auth($form, App.UserSession.register);
+
+    return false;
+  },
+
+  _auth: function($form, req) {
+    var self = this;
     var email = $form.find('.email-input').val();
     var password = $form.find('.password-input').val();
 
@@ -80,13 +69,36 @@ var LoginView = Marionette.ItemView.extend({
       password: password
     };
 
-    App.UserSession.register(creds)
+    this.$loginContent.slideUp('fast');
+    self.$requestProcess.slideDown('fast', function() {
+      self.$requestResult.hide();
+      self._sendAuthRequest(req, creds);
+    });
+  },
+
+  _sendAuthRequest: function(req, creds) {
+    var self = this;
+
+    req(creds)
       .then(function(token) {
+        this.trigger('login:success');
       })
       .catch(function(err) {
+        self.$requestResult.show();
+        if(err.response.body.reason.message) {
+          self.$requestResult.text(err.response.body.reason.message);
+        } else {
+          self.$requestResult.text(err.response.body.reason);
+        }
+        self.$requestProcess.slideUp('fast', function() {
+        });
+        self.$loginContent.slideDown('fast');
       });
+  },
 
-    return false;
+  _clearRequestResult: function() {
+    this.$requestResult.text('');
+    this.$requestResult.hide();
   }
 
 });
