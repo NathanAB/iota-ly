@@ -37,6 +37,31 @@ var UserSession = Backbone.Model.extend({
     });
 
     return promise;
+  },
+  
+  register: function(creds) {
+    var promise = new Promise(function(resolve, reject) {
+
+      request
+        .post('/register')
+        .send(creds)
+        .end(function(res) {
+          if(res.status === 200) {
+            logger.info('Register success.');
+            resolve(res.body);
+          } else {
+            logger.error('Register failed.', res);
+            reject(res.body);
+          }
+        })
+        .fail(function(err) {
+          logger.error('Register failed.', err);
+          reject(err);
+        });
+
+    });
+
+    return promise;
   }
 
 });

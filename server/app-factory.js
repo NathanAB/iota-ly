@@ -22,7 +22,7 @@ var getContentMW = require('./routes/api/content-get');
 var postContentMW = require('./routes/api/content-post');
 
 /* Configuration */
-app.use('/static', express.static(__dirname + '/../client'));
+app.use(express.static('public'));
 //app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,18 +42,8 @@ passport.use(new TokenStrategy(function (username, token, done) {
 
 /* Routes */
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname + '/../client/index.html'));
+  res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
-
-/* Temp Routes */
-app.get('/login', function(req, res){
-  res.sendFile(path.join(__dirname + '/../client/login.html'));
-});
-
-app.get('/register', function(req, res){
-  res.sendFile(path.join(__dirname + '/../client/register.html'));
-});
-/* End Temp Routes */
 
 app.post('/register', registerMW);
 app.post('/login', loginMW);

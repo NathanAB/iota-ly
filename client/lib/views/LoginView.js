@@ -40,7 +40,7 @@ var LoginView = Marionette.ItemView.extend({
     var password = $form.find('.password-input').val();
 
     var creds = {
-      email: email,
+      username: email,
       password: password
     };
 
@@ -63,8 +63,7 @@ var LoginView = Marionette.ItemView.extend({
 
     var creds = {
       email: email,
-      password: password,
-      password2: password2
+      password: password
     };
 
     App.UserSession.register(creds)

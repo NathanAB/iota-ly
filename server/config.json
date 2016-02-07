@@ -1,5 +1,5 @@
 {
     "port": 3001,
-    "mongoURI": "mongodb://heroku_xs73ncvd:5v6gs7b90ph45iim705htg5gtc@ds033865.mongolab.com:33865/heroku_xs73ncvd",
+    "mongoURI": "mongodb://localhost/newiota",
     "jwtSecret": "tokensecretgoeshere"
 }
