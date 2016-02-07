@@ -18,7 +18,7 @@ var AppController = Marionette.Object.extend({
       return this.showMainContent();
     } else {
       App.coverRegion.show(new LoginView());
-      this.on('login:success', this.showMainContent);
+      App.on('login:success', this.showMainContent);
     }
 
   },

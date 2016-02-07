@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
-var logger = require('loglevel');
 
 var LoginView = Marionette.ItemView.extend({
 
@@ -81,7 +80,7 @@ var LoginView = Marionette.ItemView.extend({
 
     req(creds)
       .then(function(token) {
-        this.trigger('login:success');
+        App.trigger('login:success');
       })
       .catch(function(err) {
         self.$requestResult.show();
