@@ -1,6 +1,0 @@
-{
-    "port": 3001,
-    "mongoURI": "mongodb://localhost/newiota",
-    "jwtSecret": "tokensecretgoeshere",
-    "imgurClientID": "0bc71bb09c764b2"
-}
