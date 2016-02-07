@@ -8,7 +8,7 @@ function loginMW(req, res, next) {
     if (err) { return res.status(500).json({ reason: "Resources are unavailable at this time" }); }
     if (!user) { return res.status(401).json({ reason: "Invalid E-mail or Password" }); }
     var token = jwt.sign(user, config.jwtSecret);
-    res.status(200).json({ token: token });
+    return res.status(200).json({ token: token });
   })(req, res, next);
 }
 

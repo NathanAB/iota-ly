@@ -37,14 +37,16 @@ describe('Register Middleware', function() {
     res.send.should.have.been.calledOnce;
   });
   it('should 400 on registering a duplicate user', function(){
-    userModelStub.register = function(user, password, cb){
-      cb({
+    var dupeError = {
         name: "UserExistsError",
         message: "A user with the given username is already registered"
-      });
+    };
+    userModelStub.register = function(user, password, cb){
+      cb(dupeError);
     };
     registerMW(req,res,null);
     res.status.should.have.been.calledWith(400);
+    res.json.should.have.been.calledWith({ reason: dupeError });
   });
   it('should 400 on registering an invalid user', function(){
     userModelStub.register = function(user, password, cb){
@@ -53,5 +55,8 @@ describe('Register Middleware', function() {
         message: "A user with the given username is already registered"
       });
     };
+    registerMW(req,res,null);
+    res.status.should.have.been.calledWith(400);
+    res.json.should.have.been.calledOnce;
   });
 });
