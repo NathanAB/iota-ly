@@ -1,10 +1,21 @@
 var chai = require('chai');
 var should = chai.should();
 
+var mongoose = require('mongoose');
+var config = require('../../server/config.json');
+
 var User = require('../../server/models/user');
 
 describe('User Model', function() {
+  
   var schema = User.schema.paths;
+  
+  before(function(){
+    mongoose.connect(config.mongoURI);
+  });
+  after(function(){
+    mongoose.disconnect();
+  });
   
   describe('Schema', function(){
     it('should have email field', function(){
@@ -27,5 +38,9 @@ describe('User Model', function() {
       schema.onboard.should.exist;
       schema.onboard.instance.should.equal('Boolean');
     });
+  });
+  
+  describe('Functions', function(){
+    
   });
 });

@@ -1,17 +1,21 @@
 var chai = require('chai');
 var should = chai.should();
+
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var config = require('../../server/config.json');
 
 var Content = require('../../server/models/content');
 
 describe('Content Model', function() {
   
   var schema = Content.schema.paths;
-  var testAccount = {
-    _id: '123abc'
-  }
+  
+  before(function(){
+    mongoose.connect(config.mongoURI);
+  });
+  after(function(){
+    mongoose.disconnect();
+  });
   
   describe('Schema', function(){
     it('should have userid field', function(){
@@ -57,7 +61,13 @@ describe('Content Model', function() {
   });
   
   describe('Functions', function(){
-    it('should return contents on valid findContents');
+    it('should return contents on valid findContents', function(done){
+      Content.findContents("56b84d4ed829634049f5ad3d", function(err, contents){
+        if(err) { throw err }
+        contents.should.be.a.array;
+        done();
+      });
+    });
     it('should return err on invalid findContents');
     it('should return saved content on valid save');
     it('should return err on invalid save');
@@ -85,5 +95,9 @@ describe('Content Model', function() {
         done();
       });
     });*/
+  });
+  
+  describe('Helper Functions', function(){
+    
   });
 });
