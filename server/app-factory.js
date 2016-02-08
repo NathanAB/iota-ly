@@ -28,9 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 mongoose.connect((process.env.MONGOLAB_URI || config.mongoURI));
-passport.use(new LocalStrategy(UserProvider.authenticate()));
-passport.use(new TokenStrategy(function (username, token, done) {
-  UserProvider.findOne({ username: username }, function (err, user) {
+passport.use(new LocalStrategy({ usernameField: 'email', session: false }, UserProvider.authenticate()));
+passport.use(new TokenStrategy({ usernameHeader: 'x-email', usernameField: 'email',}, function (email, token, done) {
+  UserProvider.findOne({ email: email }, function (err, user) {
     if (err) { return done(err); }
     if (!user) { return done(null, false); }
     jwt.verify(token, config.jwtSecret, function(err, decoded) {

@@ -7,9 +7,9 @@ describe('User Model', function() {
   var schema = User.schema.paths;
   
   describe('Schema', function(){
-    it('should have username field', function(){
-      schema.username.should.exist;
-      schema.username.instance.should.equal('String');
+    it('should have email field', function(){
+      schema.email.should.exist;
+      schema.email.instance.should.equal('String');
     });
     it('should have hash field', function(){
       schema.hash.should.exist;

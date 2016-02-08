@@ -57,13 +57,7 @@ describe('Content Model', function() {
   });
   
   describe('Functions', function(){
-    it('should return contents on valid findContents', function(done){
-      Content.findContents('123abc', function(err, contents){
-        if(err){ throw err }
-        contents.type.should.equal('Array');
-        done();
-      });
-    });
+    it('should return contents on valid findContents');
     it('should return err on invalid findContents');
     it('should return saved content on valid save');
     it('should return err on invalid save');

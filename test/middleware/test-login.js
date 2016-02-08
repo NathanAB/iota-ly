@@ -34,7 +34,7 @@ describe('Login Middleware', function() {
       send: sinon.spy()
     };
     req.body = {
-      username: 'test@test.com',
+      email: 'test@test.com',
       password: 'password'
     };
   });
@@ -43,19 +43,19 @@ describe('Login Middleware', function() {
   });
   describe('Passport Authenticate', function() {
     it('should return token on successful login authorization', function(){
-      passportStub.authenticate = sinon.stub().callsArgWith(2, null, {username:'username'}, 'INFO').returns(function(){});
+      passportStub.authenticate = sinon.stub().callsArgWith(1, null, {email:'username'}, 'INFO').returns(function(){});
       loginMW(req,res,null);
       res.status.should.have.been.calledWith(200);
       res.json.should.have.been.calledWith({ token: 'token' });
     });
     it('should 401 on wrong username/password combination', function(){
-      passportStub.authenticate = sinon.stub().callsArgWith(2, null, false).returns(function(){});
+      passportStub.authenticate = sinon.stub().callsArgWith(1, null, false).returns(function(){});
       loginMW(req,res,null);
       res.status.should.have.been.calledWith(401);
       res.json.should.have.been.calledWith({ reason: "Invalid E-mail or Password" });
     });
     it('should 500 on error', function(){
-      passportStub.authenticate = sinon.stub().callsArgWith(2, { err: 'err' }).returns(function(){});
+      passportStub.authenticate = sinon.stub().callsArgWith(1, { err: 'err' }).returns(function(){});
       loginMW(req,res,null);
       res.status.should.have.been.calledWith(500);
       res.json.should.have.been.calledWith({ reason: "Resources are unavailable at this time" });
