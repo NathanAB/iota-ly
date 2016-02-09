@@ -15,6 +15,7 @@ var res = {};
 var req = {};
 
 describe('Post Content Middleware', function() {
+    
   beforeEach(function(){
     res = {
       status: sinon.spy(function(){ return this }),

@@ -43,35 +43,37 @@ describe('Register Middleware', function() {
     });
   });
   
-  it('should 200 on successful registration', function(){
-    userModelStub.register = function(user, password, cb){
-        cb(null);
+  describe('Account Registration', function(){
+    it('should 200 on successful registration', function(){
+      userModelStub.register = function(user, password, cb){
+          cb(null);
+        };
+      registerMW(req,res,null);
+      res.status.should.have.been.calledWith(200);
+      res.send.should.have.been.calledOnce;
+    });
+    it('should 400 on registering a duplicate user', function(){
+      var dupeError = {
+          name: "UserExistsError",
+          message: "A user with the given username is already registered"
       };
-    registerMW(req,res,null);
-    res.status.should.have.been.calledWith(200);
-    res.send.should.have.been.calledOnce;
-  });
-  it('should 400 on registering a duplicate user', function(){
-    var dupeError = {
-        name: "UserExistsError",
-        message: "A user with the given username is already registered"
-    };
-    userModelStub.register = function(user, password, cb){
-      cb(dupeError);
-    };
-    registerMW(req,res,null);
-    res.status.should.have.been.calledWith(400);
-    res.json.should.have.been.calledWith({ reason: dupeError });
-  });
-  it('should 400 on registering an invalid user', function(){
-    userModelStub.register = function(user, password, cb){
-      cb({
-        name: "UserExistsError",
-        message: "A user with the given username is already registered"
-      });
-    };
-    registerMW(req,res,null);
-    res.status.should.have.been.calledWith(400);
-    res.json.should.have.been.calledOnce;
+      userModelStub.register = function(user, password, cb){
+        cb(dupeError);
+      };
+      registerMW(req,res,null);
+      res.status.should.have.been.calledWith(400);
+      res.json.should.have.been.calledWith({ reason: dupeError });
+    });
+    it('should 400 on registering an invalid user', function(){
+      userModelStub.register = function(user, password, cb){
+        cb({
+          name: "UserExistsError",
+          message: "A user with the given username is already registered"
+        });
+      };
+      registerMW(req,res,null);
+      res.status.should.have.been.calledWith(400);
+      res.json.should.have.been.calledOnce;
+    });
   });
 });
