@@ -28,6 +28,21 @@ describe('Register Middleware', function() {
     };
   });
   
+  describe('Server-side Verification', function(){
+    it('should 400 on invalid email', function(){
+      req.body.email = 'x';
+      registerMW(req,res,null);
+      res.status.should.have.been.calledWith(400);
+      res.json.should.have.been.calledWith({ reason: "Email must be between 4 and 20 characters" });
+    });
+    it('should 401 on invalid password', function(){
+      req.body.password = 'x';
+      registerMW(req,res,null);
+      res.status.should.have.been.calledWith(400);
+      res.json.should.have.been.calledWith({ reason: "Password must be between 4 and 20 characters" });
+    });
+  });
+  
   it('should 200 on successful registration', function(){
     userModelStub.register = function(user, password, cb){
         cb(null);
