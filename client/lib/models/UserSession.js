@@ -3,6 +3,7 @@ var request = require('superagent');
 var logger = require('loglevel');
 
 var AUTH_TOKEN_NAME = 'iota-auth-token';
+var USER_EMAIL_NAME = 'iota-user-email';
 var self;
 
 var UserSession = Backbone.Model.extend({
@@ -10,10 +11,12 @@ var UserSession = Backbone.Model.extend({
   initialize: function() {
     self = this;
     this.set('authToken', localStorage.getItem(AUTH_TOKEN_NAME));
+    this.set('userEmail', localStorage.getItem(USER_EMAIL_NAME));
   },
 
   isLoggedIn: function() {
-    return this.token !== undefined && this.token !== '' && this.token !== null;
+    var token = this.get('authToken');
+    return token !== undefined && token !== '' && token !== null;
   },
 
   login: function(creds) {
@@ -30,7 +33,7 @@ var UserSession = Backbone.Model.extend({
 
           if(res.status === 200) {
             logger.info('Login success.');
-            self.setAuthToken(res.body.token);
+            self.setAuthToken(res.body.token, creds.email);
             resolve(res.body);
           } else {
             logger.error('Login failed.', res);
@@ -44,8 +47,7 @@ var UserSession = Backbone.Model.extend({
   },
   
   register: function(creds) {
-    var promise = new Promise(function(resolve, reject) {
-
+    return new Promise(function(resolve, reject) {
       request
         .post('/register')
         .send(creds)
@@ -56,18 +58,15 @@ var UserSession = Backbone.Model.extend({
           }
 
           if(res.status === 200) {
-            logger.info('Register success.');
-            self.setAuthToken(res.body.token);
+            logger.info('Register success.', res);
+            self.setAuthToken(res.body.token, creds.email);
             resolve(res.body);
           } else {
             logger.error('Register failed.', res);
             reject(res.body);
           }
         });
-
     });
-
-    return promise;
   },
 
   logout: function() {
@@ -79,16 +78,33 @@ var UserSession = Backbone.Model.extend({
     }
   },
 
-  setAuthToken: function(newToken) {
+  setAuthToken: function(newToken, userEmail) {
     this.set('authToken', newToken);
     localStorage.setItem(AUTH_TOKEN_NAME, newToken);
+    localStorage.setItem(USER_EMAIL_NAME, userEmail);
   },
 
   getContent: function() {
-    var promise = new Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
+      request
+        .get('/api/content')
+        .set('x-email', self.get('userEmail'))
+        .set('x-token', self.get('authToken'))
+        .end(function(err, res) {
+          if(err) {
+            logger.error('Content GET failed.', err);
+            return reject(err);
+          }
 
-
-    }
+          if(res.status === 200) {
+            logger.info('Content GET success.', res);
+            return resolve(res.body);
+          } else {
+            logger.error('Content GET failed.', res);
+            return reject(res.body);
+          }
+        });
+    });
   }
 
 });
