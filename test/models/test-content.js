@@ -10,13 +10,13 @@ var User = require('../../server/models/user');
 describe('Content Model', function() {
   
   var schema = Content.schema.paths;
-  var ObjectId = mongoose.Types.ObjectId;
   var testAccount;
   
   before(function(done){
+    mongoose.disconnect();
+    mongoose.connect(config.testURI);
     User.collection.drop();
     Content.collection.drop();
-    mongoose.connect(config.testURI);
     User.register({ email: 'email@test.com' }, 'password', function(err, account) {
       testAccount = account;
       var newContent = {

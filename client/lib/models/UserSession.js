@@ -21,7 +21,6 @@ var UserSession = Backbone.Model.extend({
 
   login: function(creds) {
     var promise = new Promise(function(resolve, reject) {
-
       request
         .post('/login')
         .send(creds)
@@ -40,14 +39,12 @@ var UserSession = Backbone.Model.extend({
             reject(res.body);
           }
         });
-
     });
-
     return promise;
   },
   
   register: function(creds) {
-    return new Promise(function(resolve, reject) {
+    var promise = new Promise(function(resolve, reject) {
       request
         .post('/register')
         .send(creds)
@@ -67,10 +64,12 @@ var UserSession = Backbone.Model.extend({
           }
         });
     });
+    return promise;
   },
 
   logout: function() {
     localStorage.removeItem(AUTH_TOKEN_NAME);
+    localStorage.removeItem(USER_EMAIL_NAME);
     if(window.location.pathname === '/') {
       window.location.reload();
     } else {
@@ -80,6 +79,7 @@ var UserSession = Backbone.Model.extend({
 
   setAuthToken: function(newToken, userEmail) {
     this.set('authToken', newToken);
+    this.set('userEmail', userEmail);
     localStorage.setItem(AUTH_TOKEN_NAME, newToken);
     localStorage.setItem(USER_EMAIL_NAME, userEmail);
   },

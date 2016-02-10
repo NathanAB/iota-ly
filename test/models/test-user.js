@@ -11,7 +11,8 @@ describe('User Model', function() {
   var schema = User.schema.paths;
   
   before(function(){
-    mongoose.connect(config.mongoURI);
+    mongoose.disconnect();
+    mongoose.connect(config.testURI);
   });
   after(function(){
     mongoose.disconnect();

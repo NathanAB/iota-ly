@@ -6,9 +6,20 @@ var should = chai.should();
 
 chai.use(sinonChai);
 
-var userModelStub = {};
+var userModelStub = {},
+    jwtStub = {
+      sign: function(user, secret){
+        return 'token'
+      }
+    },
+    configStub = {
+      jwtSecret: 'secret'
+    }
+    
 var registerMW = proxyquire('../../server/routes/register', {
-  '../models/user.js': userModelStub
+  '../models/user.js': userModelStub,
+  'jsonwebtoken': jwtStub,
+  '../config.json': configStub
 });
 
 var res = {};
@@ -50,7 +61,7 @@ describe('Register Middleware', function() {
         };
       registerMW(req,res,null);
       res.status.should.have.been.calledWith(200);
-      res.send.should.have.been.calledOnce;
+      res.json.should.have.been.calledWith({ token: 'token' });
     });
     it('should 400 on registering a duplicate user', function(){
       var dupeError = {
