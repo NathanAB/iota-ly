@@ -14,7 +14,7 @@ var deleteContentMW = proxyquire('../../../server/routes/api/content-delete', {
 var res = {};
 var req = {};
 
-describe('Post Content Middleware', function() {
+describe('Delete Content Middleware', function() {
     
   beforeEach(function(){
     res = {

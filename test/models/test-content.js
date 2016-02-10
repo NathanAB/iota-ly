@@ -5,15 +5,35 @@ var mongoose = require('mongoose');
 var config = require('../../server/config.json');
 
 var Content = require('../../server/models/content');
+var User = require('../../server/models/user');
 
 describe('Content Model', function() {
   
   var schema = Content.schema.paths;
+  var ObjectId = mongoose.Types.ObjectId;
+  var testAccount;
   
-  before(function(){
-    mongoose.connect(config.mongoURI);
+  before(function(done){
+    User.collection.drop();
+    Content.collection.drop();
+    mongoose.connect(config.testURI);
+    User.register({ email: 'email@test.com' }, 'password', function(err, account) {
+      testAccount = account;
+      var newContent = {
+        userid: account._id,
+        type: 'STRING',
+        half: false,
+        content: 'test string'
+      };
+      Content.save(newContent, function(err){
+        if(err) { console.log('Error saving content'); }
+        done();
+      });
+    });
   });
   after(function(){
+    User.collection.drop();
+    Content.collection.drop();
     mongoose.disconnect();
   });
   
@@ -62,39 +82,21 @@ describe('Content Model', function() {
   
   describe('Functions', function(){
     it('should return contents on valid findContents', function(done){
-      Content.findContents("56b84d4ed829634049f5ad3d", function(err, contents){
+      Content.findContents(testAccount._id, function(err, contents){
         if(err) { throw err }
         contents.should.be.a.array;
+        contents.length.should.equal(1);
+        contents[0].should.have.property('type');
+        contents[0].type.should.equal('STRING');
+        contents[0].should.have.property('half');
+        contents[0].half.should.equal(false);
+        contents[0].should.have.property('content');
+        contents[0].content.should.equal('test string');
         done();
       });
     });
-    it('should return err on invalid findContents');
     it('should return saved content on valid save');
-    it('should return err on invalid save');
     it('should return posted on valid post');
-    it('should return err on invalid post');
-    /*it('should save and return string content', function(done){
-      Content.post(testAccount._id, 'test string', function(err, content){
-          content.should.have.property('type');
-          content.type.should.equal('STRING');
-          content.should.have.property('half');
-          content.half.should.equal(false);
-          content.should.have.property('content');
-          content.content.should.equal('test string');
-        done();
-      });
-    });
-    it('should save and return image content', function(done){
-      Content.post(testAccount._id, 'http://i.imgur.com/8MblPGL.png', function(err, content){
-          content.should.have.property('type');
-          content.type.should.equal('IMAGE');
-          content.should.have.property('half');
-          content.half.should.equal(true);
-          content.should.have.property('content');
-          content.content.should.equal('http://i.imgur.com/8MblPGL.png');
-        done();
-      });
-    });*/
   });
   
   describe('Helper Functions', function(){

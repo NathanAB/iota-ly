@@ -27,7 +27,10 @@ var contentSchema = new Schema({
 var Content = mongoose.model('Content', contentSchema);
 
 Content.findContents = function(userid, cb) {
-  Content.find({ 'userid': userid }).sort({postdate: -1}).exec(function(err, contents) {
+  Content.find({ 'userid': userid })
+    .select('-userid')
+    .sort({postdate: -1})
+    .exec(function(err, contents) {
     if(err){ cb(err) }
     cb(err, contents);
   });

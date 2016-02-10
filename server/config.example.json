@@ -1,6 +1,7 @@
 {
     "port": 3001,
     "mongoURI": "mongodb://localhost/newapp",
+    "testURI": "mongodb://localhost/testapp",
     "jwtSecret": "tokensecretgoeshere",
     "imgurClientID": "imgurClientIDhere"
 }
