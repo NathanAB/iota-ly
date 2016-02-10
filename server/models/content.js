@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
-var imgur = require('imgur-node-api');
+/*var imgur = require('imgur-node-api');
 var request = require('request');
 var cheerio = require('cheerio');
-var q = require('q');
+var q = require('q');*/
 var config = require('../config.json');
 
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
-imgur.setClientID(config.imgurClientID);
+//imgur.setClientID(config.imgurClientID);
 
 /* Schema */
 var contentSchema = new Schema({
@@ -28,6 +28,7 @@ var Content = mongoose.model('Content', contentSchema);
 
 Content.findContents = function(userid, cb) {
   Content.find({ 'userid': userid }).sort({postdate: -1}).exec(function(err, contents) {
+    if(err){ cb(err) }
     cb(err, contents);
   });
 };
