@@ -26,7 +26,7 @@ describe('Content Model', function() {
         content: 'test string'
       };
       Content.save(newContent, function(err){
-        if(err) { console.log('Error saving content'); }
+        if(err) { throw err; }
         done();
       });
     });

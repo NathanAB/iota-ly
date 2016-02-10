@@ -39,7 +39,18 @@ describe('Login Middleware', function() {
     };
   });
   describe('Server-side Verification', function(){
-    it('should 401 on invalid login information');
+    it('should 401 on invalid username', function(){
+      req.body.email = '';
+      loginMW(req,res,null);
+      res.status.should.have.been.calledWith(401);
+      res.json.should.have.been.calledWith({ reason: "Invalid E-mail or Password" });
+    });
+    it('should 401 on invalid password', function(){
+      req.body.password = '';
+      loginMW(req,res,null);
+      res.status.should.have.been.calledWith(401);
+      res.json.should.have.been.calledWith({ reason: "Invalid E-mail or Password" });
+    });
   });
   describe('Passport Authenticate', function() {
     it('should return token on successful login authorization', function(){
