@@ -1,9 +1,6 @@
 var Backbone = require('backbone');
-Backbone.Marionette = require('backbone.marionette');
-// var AppController = require('./controllers/AppController');
-// var request = require('superagent');
-// var $ = require('jquery');
 var logger = require('loglevel');
+Backbone.Marionette = require('backbone.marionette');
 logger.setLevel('info');
 
 // Controllers
@@ -21,7 +18,8 @@ App.on('start', function() {
 
   App.addRegions({
     mainRegion: '#content',
-    coverRegion: '#cover'
+    coverRegion: '#cover',
+    headerRegion: '#header'
   });
 
   App.AppController = new AppController();

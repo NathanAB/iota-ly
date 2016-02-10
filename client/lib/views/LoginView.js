@@ -79,18 +79,20 @@ var LoginView = Marionette.ItemView.extend({
     var self = this;
 
     req(creds)
-      .then(function(token) {
+      .then(function() {
         App.trigger('login:success');
       })
       .catch(function(err) {
         self.$requestResult.show();
+
+        // Display auth error
         if(err.response.body.reason.message) {
           self.$requestResult.text(err.response.body.reason.message);
         } else {
           self.$requestResult.text(err.response.body.reason);
         }
-        self.$requestProcess.slideUp('fast', function() {
-        });
+
+        self.$requestProcess.slideUp('fast');
         self.$loginContent.slideDown('fast');
       });
   },
