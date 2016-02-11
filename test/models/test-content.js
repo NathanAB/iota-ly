@@ -10,6 +10,7 @@ var User = require('../../server/models/user');
 describe('Content Model', function() {
   
   var schema = Content.schema.paths;
+  var ObjectId = mongoose.Types.ObjectId;
   var testAccount;
   
   before(function(done){
@@ -19,16 +20,7 @@ describe('Content Model', function() {
     Content.collection.drop();
     User.register({ email: 'email@test.com' }, 'password', function(err, account) {
       testAccount = account;
-      var newContent = {
-        userid: account._id,
-        type: 'STRING',
-        half: false,
-        content: 'test string'
-      };
-      Content.save(newContent, function(err){
-        if(err) { throw err; }
-        done();
-      });
+      done();
     });
   });
   after(function(){
@@ -81,6 +73,23 @@ describe('Content Model', function() {
   });
   
   describe('Functions', function(){
+    
+    beforeEach(function(done){
+      var newContent = {
+        userid: testAccount._id,
+        type: 'STRING',
+        half: false,
+        content: 'test string'
+      };
+      Content.save(newContent, function(err){
+        if(err) { throw err; }
+        done();
+      });
+    });
+    afterEach(function(){
+      Content.collection.drop();
+    });
+    
     it('should return contents on valid findContents', function(done){
       Content.findContents(testAccount._id, function(err, contents){
         if(err) { throw err }
@@ -95,8 +104,40 @@ describe('Content Model', function() {
         done();
       });
     });
-    it('should return saved content on valid save');
-    it('should return posted on valid post');
+    it('should return saved content on valid save', function(done){
+      var newContent = {
+        userid: testAccount._id,
+        type: 'STRING',
+        half: false,
+        content: 'save string'
+      };
+      Content.save(newContent, function(err){
+        if(err) { throw err; }
+        done();
+      });
+    });
+    it('should return posted on valid post', function(done){
+      Content.post(testAccount._id, "post string", function(err, content){
+        content.should.have.property('_id');
+        content.should.have.property('type');
+        content.type.should.equal('STRING');
+        content.should.have.property('half');
+        content.half.should.equal(false);
+        content.should.have.property('content');
+        content.content.should.equal('post string');
+        done();
+      });
+    });
+    it('should delete posted content', function(done){
+      Content.post(testAccount._id, "delete string", function(err, content){
+        content.should.have.property('_id');
+        Content.findOneAndRemove({ _id: content._id }, function(err, deleted){
+          deleted.should.have.property('_id');
+          (content._id+"").should.equal((deleted._id+""));
+          done();
+        });
+      });
+    });
   });
   
   describe('Helper Functions', function(){
