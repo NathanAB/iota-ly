@@ -35,10 +35,10 @@ var AppController = Marionette.Object.extend({
       .then(function(content) {
         // Store and display content
         var tempIota = [];
-        tempIota.push({_id: 1, content:'test string 1'});
-        tempIota.push({_id: 2, content:'test string 2'});
-        tempIota.push({_id: 3, content:'test string 3'});
-        tempIota.push({_id: 4, content:'test string 4'});
+        tempIota.push({_id: 1, content:'test string 1', type:'STRING'});
+        tempIota.push({_id: 2, content:'test string 2', type:'STRING'});
+        tempIota.push({_id: 3, content:'http://i.imgur.com/bGVcCYP.png', type:'IMAGE'});
+        tempIota.push({_id: 4, content:'http://i.imgur.com/jG8Ccsk.jpg', type:'IMAGE'});
         
         var iotaCollection = new IotaCollection(tempIota);
         var iotaCollectionView = new IotaCollectionView({collection: iotaCollection});

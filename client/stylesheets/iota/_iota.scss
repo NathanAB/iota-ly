@@ -1,6 +1,10 @@
 .iota {
-  
-  max-width: 100%;
+  padding-top: 10px;
+}
+
+.iota-box {
+  width: 100%;
+  min-height: 125px;
   padding: 5px 5px;
 
 	cursor: pointer;
@@ -12,4 +16,51 @@
 	border: 1px solid #DDD;
 	border-radius: 0px;
   
+  -webkit-box-shadow: 0px 0px 7px -1px #DDD;
+	-moz-box-shadow: 0px 0px 7px -1px #DDD;
+	box-shadow: 0px 0px 7px -1px #DDD;
+}
+
+.iota-full {
+  width: 100%
+}
+
+.iota-half {
+  max-width: calc(50% - 12px);
+	height: 150px;
+}
+
+.iota-image {
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  bottom: -100%;
+  left: -100%;
+  right: -100%;
+  margin: auto;
+  
+  z-index: 1;
+}
+
+.image-screen {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(255,255,255,0.5);
+  z-index: 2;
+    
+  -webkit-transition: background-color 0.25s;
+  transition: background-color 0.25s;
+}
+
+.perma-image-screen {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(200,200,200,0.7);
+  z-index: 2;
 }
