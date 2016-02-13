@@ -105,6 +105,42 @@ var UserSession = Backbone.Model.extend({
           }
         });
     });
+  },
+  
+  convertContent: function(string){
+    
+  },
+  
+  postContent: function(content) {
+    
+  },
+  
+  editContent: function(content) {
+    
+  },
+  
+  deleteContent: function(contentID) {
+    return new Promise(function(resolve, reject) {
+      request
+        .delete('/api/content')
+        .send(contentID)
+        .set('x-email', self.get('userEmail'))
+        .set('x-token', self.get('authToken'))
+        .end(function(err, res) {
+          if(err) {
+            logger.error('Content DELETE failed.', err);
+            return reject(err);
+          }
+
+          if(res.status === 200) {
+            logger.info('Content DELETE success.', res);
+            return resolve(res.body);
+          } else {
+            logger.error('Content DELETE failed.', res);
+            return reject(res.body);
+          }
+        });
+    });
   }
 
 });
