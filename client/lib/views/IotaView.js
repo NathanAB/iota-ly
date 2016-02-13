@@ -17,7 +17,8 @@ var Iota = Marionette.ItemView.extend({
   className: 'iota',
   
   events: {
-    'click .image-screen': '_expandImage'
+    'click .image-screen': '_expandImage',
+    'click .iota-video': '_expandVideo'
   },
   
   _expandImage: function(){

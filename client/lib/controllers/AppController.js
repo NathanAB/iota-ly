@@ -39,6 +39,10 @@ var AppController = Marionette.Object.extend({
         tempIota.push({_id: 2, content:'test string 2', type:'STRING'});
         tempIota.push({_id: 3, content:'http://i.imgur.com/bGVcCYP.png', type:'IMAGE'});
         tempIota.push({_id: 4, content:'http://i.imgur.com/jG8Ccsk.jpg', type:'IMAGE'});
+        tempIota.push({_id: 5, content:'http://www.sbnation.com/', title:'test url 1', img:'http://i.imgur.com/bGVcCYP.png',type:'URL'});
+        tempIota.push({_id: 6, content:'http://www.theverge.com/', title:'test url 2', img:'http://i.imgur.com/bGVcCYP.png',type:'URL'});
+        tempIota.push({_id: 7, content:'https://www.youtube.com/watch?v=mMcucOwYCoM', title:'test video 1', img:'http://i.imgur.com/bGVcCYP.png', type:'VIDEO'});
+        tempIota.push({_id: 8, content:'https://www.youtube.com/watch?v=mMcucOwYCoM', title:'test video 2', img:'http://i.imgur.com/jG8Ccsk.jpg', type:'VIDEO'});
         
         var iotaCollection = new IotaCollection(tempIota);
         var iotaCollectionView = new IotaCollectionView({collection: iotaCollection});

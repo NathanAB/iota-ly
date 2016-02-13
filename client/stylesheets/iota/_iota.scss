@@ -42,6 +42,41 @@
   z-index: 1;
 }
 
+/* URL */
+
+.iota-title {
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  z-index: 3;
+}
+
+.iota-subtitle {
+  position: relative;
+  z-index: 3;
+}
+
+.iota-url, .iota-video {
+  width: 100%;
+  height: 100%;
+  font-weight: normal;
+  font-size: 12px;
+  position: relative;
+  
+  color: rgba(255,255,255,1);
+  text-shadow: 
+    1px 1px 0px rgba(0,0,0,0.5), 
+    1px 0px 0px rgba(0,0,0,0.5), 
+    0px 1px 0px rgba(0,0,0,0.5),
+    0px 0px 4px rgba(0,0,0,0.5), 
+    0px 0px 3px rgba(0,0,0,0.5), 
+    0px 0px 2px rgba(0,0,0,0.5);
+  background-color: transparent;
+  
+  -webkit-transition: text-shadow 0.25s, color 0.25s;
+  transition: text-shadow 0.25s, color 0.25s;
+}
+
 .image-screen {
   position: absolute;
   left: 0px;
