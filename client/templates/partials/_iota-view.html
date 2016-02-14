@@ -1,0 +1,16 @@
+<script id="iota-view" type="text/template">
+  <% if(imageUrl) { %>
+  <div class="iota-bg" style="background: url('<%= imageUrl %>') center; background-size: cover;"></div>
+  <% } %>
+
+  <div class="iota-content">
+    <% if(title) { %>
+    <div class="iota-footer">
+
+      <div class="iota-title"><%= title %></div>
+      
+      <div class="iota-url"><%= content %></div>
+    </div>
+    <% } %>
+  </div>
+</script>

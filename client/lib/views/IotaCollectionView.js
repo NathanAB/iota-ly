@@ -4,7 +4,7 @@ var IotaView = require('./IotaView');
 var IotaCollectionView = Marionette.CollectionView.extend({
   
   childView: IotaView,
-  className: 'iotas'
+  className: 'container'
   
 });
 

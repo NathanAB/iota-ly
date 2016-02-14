@@ -3,6 +3,7 @@ var Marionette = require('backbone.marionette');
 var HeaderView = Marionette.ItemView.extend({
 
   template: '#header-view',
+  className: 'header',
 
   events: {
     'click .logout-link': '_logout'

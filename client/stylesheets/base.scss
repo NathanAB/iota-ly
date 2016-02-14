@@ -23,7 +23,6 @@ $white: #FFFFFF;
 @import "iota/header";
 @import "iota/login-view";
 @import "iota/iota";
-@import "iota/iota-collection";
 
 // Font
 @import url(https://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,greek);
@@ -72,6 +71,10 @@ a {
     @include transition(background-color 0.2s);
   }
 
+}
+
+#content {
+  padding-top: 70px;
 }
 
 #cover {

@@ -2,18 +2,12 @@ var Marionette = require('backbone.marionette');
 
 var Iota = Marionette.ItemView.extend({
   
-  getTemplate: function(){
-    if (this.model.get('type') == 'IMAGE'){
-      return '#iota-image-view';
-    } else if(this.model.get('type') == 'URL') {
-      return '#iota-url-view';
-    } else if(this.model.get('type') == 'VIDEO') {
-      return '#iota-video-view';
-    } else {
-      return '#iota-string-view';
-    }
-  },
+  // getTemplate: function(){
+  //   return IOTA_TEMPLATES[this.model.get('type')] || '#iota-string-view';
+  // },
   
+  template: '#iota-view',
+
   className: 'iota',
   
   events: {
