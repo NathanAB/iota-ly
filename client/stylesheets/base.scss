@@ -25,7 +25,8 @@ $white: #FFFFFF;
 @import "iota/iota";
 
 // Font
-@import url(https://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,greek);
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic&subset=greek);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 // Base CSS
 .left {
@@ -40,7 +41,8 @@ $white: #FFFFFF;
 
 body {
   background-color: $bgGrey;
-  font-family: 'Didact Gothic', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.35em;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -98,4 +100,8 @@ a {
   text-align: center;
   left: 0;
   right: 0;
+}
+
+.didact {
+  font-family: 'Didact Gothic', sans-serif;
 }

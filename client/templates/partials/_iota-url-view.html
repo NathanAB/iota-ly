@@ -1,12 +1,16 @@
 <script id="iota-url-view" type="text/template">
-  <div class="iota-box">
-    <a href="<%= content %>" target="_blank">
-      <div class="iota-url">
+  <% if(imageUrl) { %>
+  <div class="iota-bg" style="background: url('<%= imageUrl %>') center; background-size: cover;"></div>
+  <% } %>
+
+  <div class="iota-content">
+    <% if(title) { %>
+    <a href="<%= content %>">
+      <div class="iota-footer">
         <div class="iota-title"><%= title %></div>
-        <div class="iota-subtitle"><%= content %></div>
+        <div class="iota-url"><%= content %></div>
       </div>
-      <div class="perma-image-screen"> </div> 
-      <img class="iota-image" src="<%= img %>"> 
     </a>
+    <% } %>
   </div>
 </script>

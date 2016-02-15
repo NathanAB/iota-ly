@@ -21,6 +21,7 @@
     width: 100%;
     height: 320px;
 
+    @include transition(background 0.2s);
     @include box-shadow(0px, 0px, 7px, $lighterGrey);
 
     .iota-footer {
@@ -36,29 +37,48 @@
       overflow: hidden;
       text-align: center;
 
+      @include transition(height 0.2s);
+
+
       // URL fadeaway
       &::after {
         content: '';
         position: absolute; 
-        bottom: 0; 
+        bottom: 0px;
         left: 0;
-        width: 100%; 
-        padding: 15px 0; 
+        width: 100%;
+        padding: 15px 0;
+        opacity: 1;
+
+        @include transition(opacity 0.2s);
         
-        /* "transparent" only works here because == rgba(0,0,0,0) */
-        background-image: linear-gradient(to bottom, transparent, $lightestGrey);
+        background-image: linear-gradient(to top, $lightestGrey, $lightestGrey 20%, transparent);
       }
 
       .iota-title {
         font-weight: bold;
-        padding-bottom: 15px;
+        padding-bottom: 10px;
       }
 
       .iota-url {
-        color: $grey;
-        line-height: 1.2em;
+        color: $darkGrey;
+        line-height: 1.4em;
       }
+    }
 
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+      @include transition(background 0.2s);
+
+      .iota-footer {
+        height: 90px;
+        @include transition(height 0.2s);
+
+        &::after {
+          opacity: 0;
+          @include transition(opacity 0.2s);
+        }
+      }
     }
 
   }
