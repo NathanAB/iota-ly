@@ -16,3 +16,25 @@
     box-shadow: $top $left $blur $color;
   }
 }
+
+@mixin breakpoint($class) {
+  @if $class == x-small {
+    @media (max-width: 600px) { @content; }
+  }
+ 
+  @else if $class == small {
+    @media (max-width: 1000px) { @content; }
+  }
+ 
+  @else if $class == medium {
+    @media (max-width: 1280px) { @content; }
+  }
+ 
+  @else if $class == large {
+    @media (min-width: 1281px) { @content; }
+  }
+ 
+  @else {
+    @warn "Breakpoint mixin supports: x-small, small, medium, large";
+  }
+}

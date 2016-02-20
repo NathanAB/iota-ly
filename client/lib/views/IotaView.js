@@ -1,10 +1,10 @@
 var Marionette = require('backbone.marionette');
 
 var IOTA_TEMPLATES = {
-  IMAGE: '#iota-image-view',
-  VIDEO: '#iota-video-view',
-  URL: '#iota-url-view',
-  STRING: '#iota-string-view'
+  image: '#iota-image-view',
+  video: '#iota-video-view',
+  url: '#iota-url-view',
+  string: '#iota-string-view'
 };
 
 var Iota = Marionette.ItemView.extend({
@@ -18,6 +18,10 @@ var Iota = Marionette.ItemView.extend({
   events: {
     'click .image-screen': '_expandImage',
     'click .iota-video': '_expandVideo'
+  },
+
+  onShow: function() {
+    this.$el.addClass('iota-' + this.model.get('type'));
   },
   
   _expandImage: function(){

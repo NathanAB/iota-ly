@@ -40,43 +40,43 @@ var AppController = Marionette.Object.extend({
           _id: 1,
           title: 'Test string 1',
           content: '',
-          type: 'STRING',
+          type: 'string',
           imageUrl: ''
         });
         tempIota.push({
-          _id: 3,
+          _id: 2,
           content: 'http://i.imgur.com/bGVcCYP.png',
           imageUrl: 'http://i.imgur.com/bGVcCYP.png',
-          type: 'IMAGE',
+          type: 'image',
+          title: ''
+        });
+        tempIota.push({
+          _id: 3,
+          content: 'http://i.imgur.com/jG8Ccsk.jpg',
+          imageUrl: 'http://i.imgur.com/jG8Ccsk.jpg',
+          type: 'image',
           title: ''
         });
         tempIota.push({
           _id: 4,
-          content: 'http://i.imgur.com/jG8Ccsk.jpg',
-          imageUrl: '',
-          type: 'IMAGE',
-          title: ''
-        });
-        tempIota.push({
-          _id: 5,
           content: 'http://www.sbnation.com/',
           title: 'Another test URL with a longer title',
           imageUrl: 'http://i.imgur.com/bGVcCYP.png',
-          type: 'URL'
+          type: 'url'
         });
         tempIota.push({
-          _id: 6,
+          _id: 5,
           content: 'http://www.theverge.com/',
           title: 'test url 2',
           imageUrl: 'http://i.imgur.com/bGVcCYP.png',
-          type: 'URL'
+          type: 'url'
         });
         tempIota.push({
-          _id: 7,
+          _id: 6,
           content: 'https://www.youtube.com/watch?v=mMcucOwYCoM',
           title: 'test video 1',
           imageUrl: 'http://i.imgur.com/bGVcCYP.png',
-          type: 'VIDEO'
+          type: 'video'
         });
 
         var iotaCollection = new IotaCollection(tempIota);
