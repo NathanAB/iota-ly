@@ -98,11 +98,11 @@ var AppController = Marionette.Object.extend({
     App.stageRegion.show(new IotaStageView({
       model: iota
     }));
-    $('#stage').fadeIn();
+    $('#stage').fadeIn('fast');
   },
 
   closeImage: function() {
-    $('#stage').fadeOut();
+    $('#stage').fadeOut('fast');
   }
 
 });
