@@ -19,7 +19,8 @@ App.on('start', function() {
   App.addRegions({
     mainRegion: '#content',
     coverRegion: '#cover',
-    headerRegion: '#header'
+    headerRegion: '#header',
+    stageRegion: '#stage'
   });
 
   App.AppController = new AppController();

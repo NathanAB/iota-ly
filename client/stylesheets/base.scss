@@ -23,6 +23,7 @@ $white: #FFFFFF;
 @import "iota/header";
 @import "iota/login-view";
 @import "iota/iota";
+@import "iota/iota-stage-view";
 
 // Font
 @import url(https://fonts.googleapis.com/css?family=Didact+Gothic&subset=greek);
@@ -97,6 +98,16 @@ a {
   height: 100%;
   z-index: 10;
   overflow: scroll;
+}
+
+#stage {
+  display: none;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 70px;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.5);
 }
 
 // Move to new file

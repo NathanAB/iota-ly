@@ -6,6 +6,7 @@ var LoadingView = require('../views/LoadingView');
 var LoginView = require('../views/LoginView');
 var HeaderView = require('../views/HeaderView');
 var IotaCollectionView = require('../views/IotaCollectionView');
+var IotaStageView = require('../views/IotaStageView');
 
 var IotaCollection = require('../models/IotaCollection');
 
@@ -14,6 +15,8 @@ var AppController = Marionette.Object.extend({
   initialize: function() {
 
     App.coverRegion.show(new LoadingView());
+    App.on('expand:image', this.expandImage);
+    App.on('close:image', this.closeImage);
 
   },
 
@@ -75,20 +78,31 @@ var AppController = Marionette.Object.extend({
           _id: 6,
           content: 'https://www.youtube.com/watch?v=mMcucOwYCoM',
           title: 'test video 1',
-          imageUrl: 'http://i.imgur.com/bGVcCYP.png',
+          imageUrl: '',
           type: 'video'
         });
 
         var iotaCollection = new IotaCollection(tempIota);
-        var iotaCollectionView = new IotaCollectionView({
+        this.iotaCollectionView = new IotaCollectionView({
           collection: iotaCollection
         });
-        App.mainRegion.show(iotaCollectionView);
+        App.mainRegion.show(this.iotaCollectionView);
       })
       .catch(function(err) {
         // Show error and/or go to login
         logger.error(err);
       });
+  },
+
+  expandImage: function(iota) {
+    App.stageRegion.show(new IotaStageView({
+      model: iota
+    }));
+    $('#stage').fadeIn();
+  },
+
+  closeImage: function() {
+    $('#stage').fadeOut();
   }
 
 });

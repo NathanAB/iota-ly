@@ -16,16 +16,25 @@ var Iota = Marionette.ItemView.extend({
   className: 'iota',
   
   events: {
-    'click .image-screen': '_expandImage',
-    'click .iota-video': '_expandVideo'
+    'click .iota-content': '_clickContent'
   },
 
   onShow: function() {
     this.$el.addClass('iota-' + this.model.get('type'));
   },
   
-  _expandImage: function(){
-    console.log('expand image');
+  _clickContent: function() {
+    switch(this.model.get('type')) {
+      case 'image':
+        this._expandImage();
+        break;
+      default:
+        break;
+    }
+  },
+
+  _expandImage: function() {
+    App.trigger('expand:image', this.model);
   },
   
   _expandVideo: function(){
