@@ -21,7 +21,6 @@ $white: #FFFFFF;
 // Iota
 @import "iota/mixins";
 @import "iota/header";
-@import "iota/login-view";
 @import "iota/iota";
 @import "iota/iota-stage-view";
 
@@ -34,6 +33,9 @@ $white: #FFFFFF;
   width: 100%;
   max-width: 1000px;
   padding: 0 20px;
+}
+#content .container {
+  height: calc(100vh - 71px);
 }
 
 .left {
@@ -83,8 +85,9 @@ a {
 }
 
 #content {
-  padding-top: 70px;
-  padding-bottom: 40px;
+  position: fixed;
+  top: 70px;
+  width: 100%;
 }
 
 #cover {
@@ -122,4 +125,19 @@ a {
 
 .didact {
   font-family: 'Didact Gothic', sans-serif;
+}
+
+.content-box {
+  background-color: #FAFAFA;
+  padding: 25px;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
+  width: 350px;
+  max-width: 90%;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  transform: translateY(-50%);
 }

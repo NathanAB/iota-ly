@@ -12,6 +12,12 @@ var UserSession = Backbone.Model.extend({
     self = this;
     this.set('authToken', localStorage.getItem(AUTH_TOKEN_NAME));
     this.set('userEmail', localStorage.getItem(USER_EMAIL_NAME));
+
+    // Check if saving a link
+    var path = window.location.pathname.substr(1);
+    if(window.location.pathname !== '') {
+      this.set('link', path);
+    }
   },
 
   isLoggedIn: function() {

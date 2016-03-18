@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var logger = require('loglevel');
 
@@ -7,6 +8,7 @@ var LoginView = require('../views/LoginView');
 var HeaderView = require('../views/HeaderView');
 var IotaCollectionView = require('../views/IotaCollectionView');
 var IotaStageView = require('../views/IotaStageView');
+var SaveLinkView = require('../views/SaveLinkView');
 
 var IotaCollection = require('../models/IotaCollection');
 
@@ -23,7 +25,19 @@ var AppController = Marionette.Object.extend({
   start: function() {
 
     if (App.UserSession.isLoggedIn()) {
-      return this.getContent();
+      // Set up base content
+      App.headerRegion.show(new HeaderView());
+      $('#cover').fadeOut();
+
+      // Show user content or link submission
+      var link = App.UserSession.get('link');
+      if(!link) {
+        return this.getContent();
+      } else {
+        App.on('link:cancel', this.getContent);
+        App.on('link:save', this.getContent);
+        return this.saveLink();
+      }
     } else {
       App.coverRegion.show(new LoginView());
       App.on('login:success', this.getContent);
@@ -31,10 +45,16 @@ var AppController = Marionette.Object.extend({
 
   },
 
-  getContent: function() {
-    App.headerRegion.show(new HeaderView());
-    $('#cover').fadeOut();
+  saveLink: function() {
+    this.saveLinkView = new SaveLinkView({
+      model: new Backbone.Model({
+        link: App.UserSession.get('link')
+      })
+    });
+    App.mainRegion.show(this.saveLinkView);
+  },
 
+  getContent: function() {
     App.UserSession.getContent()
       .then(function(content) {
         // Store and display content
