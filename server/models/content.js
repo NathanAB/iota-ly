@@ -11,62 +11,70 @@ var ObjectId = Schema.ObjectId;
 
 /* Schema */
 var contentSchema = new Schema({
-    userid     : ObjectId,
-    content    : String,
-    original   : String,
-    embed      : String,
-    title      : String,
-    img        : String,
-    type       : String,
-    half       : Boolean,
-    postdate   : { type: Date, default: Date.now },
-    lastupdate : { type: Date, default: Date.now }
+  userid: ObjectId,
+  content: String,
+  original: String,
+  embed: String,
+  title: String,
+  img: String,
+  type: String,
+  half: Boolean,
+  postdate: { type: Date, default: Date.now },
+  lastupdate: { type: Date, default: Date.now }
 });
 
 /* Functions */
 var Content = mongoose.model('Content', contentSchema);
 
-Content.findContents = function(userid, cb) {
+Content.findContents = function (userid, cb) {
   Content.find({ 'userid': userid })
     .select('-userid')
-    .sort({postdate: -1})
-    .exec(function(err, contents) {
-    if(err){ cb(err) }
-    cb(err, contents);
-  });
+    .sort({ postdate: -1 })
+    .exec(function (err, contents) {
+      if (err) { cb(err) }
+      cb(err, contents);
+    });
 };
 
-Content.save = function(params, cb) {
-  var content  = new Content({
-    userid     : params['userid'],
-    content    : params['content'],
-    embed      : params['embed'],
-    title      : params['title'],
-    img        : params['img'],
-    type       : params['type'],
-    half       : params['half']
+Content.save = function (params, cb) {
+  var content = new Content({
+    userid: params['userid'],
+    content: params['content'],
+    embed: params['embed'],
+    title: params['title'],
+    img: params['img'],
+    type: params['type'],
+    half: params['half']
   });
-  content.save(function(err){
-    if(err) { cb(err); }
+  content.save(function (err) {
+    if (err) { cb(err); }
     cb(null, content);
   });
 };
 
-Content.post = function(userid, stringlet, cb) {
-  convertStringlet(userid, stringlet, function(err, content) {
+/*Content.post = function (userid, stringlet, cb) {
+  convertStringlet(userid, stringlet, function (err, content) {
     if (err) { cb(err); }
-    Content.save(content, function(err, content) {
+    Content.save(content, function (err, content) {
       if (err) { cb(err); }
       cb(null, content);
     });
+  });
+};*/
+
+Content.post = function (userid, iota, cb) {
+  iota.userid = userid;
+  Content.save(iota, function (err, content) {
+    if (err) { cb(err); }
+    cb(null, content);
   });
 };
 
 /* Helper Functions */
 //TODO: Push these out to a util file??
-function convertStringlet(userid, stringlet, cb){
+function convertStringlet(userid, stringlet, cb) {
   var data = {};
-  
+
   if (isImage(stringlet)) {
     data.userid = userid;
     data.type = 'IMAGE';
@@ -79,36 +87,36 @@ function convertStringlet(userid, stringlet, cb){
     data.half = false;
     data.content = decodeURI(stringlet);
   }
-  
+
   cb(null, data);
 }
 
 function isImage(stringlet) {
-  if (stringlet.indexOf(".jpg") > -1 || stringlet.indexOf(".jpeg") > -1 || 
-      stringlet.indexOf(".gif") > -1 || stringlet.indexOf(".png") > -1)
+  if (stringlet.indexOf(".jpg") > -1 || stringlet.indexOf(".jpeg") > -1 ||
+    stringlet.indexOf(".gif") > -1 || stringlet.indexOf(".png") > -1)
     return true;
   else
     return false;
 }
 
-function isVideo(stringlet){
-  
-}
-
-function isURL(stringlet){
-  
-}
-
-function toImageContent(userid, stringlet){
-  
-}
-
-function toVideoContent(userid, stringlet){
+function isVideo(stringlet) {
 
 }
 
-function toURLContent(userid, stringlet){
-  
+function isURL(stringlet) {
+
+}
+
+function toImageContent(userid, stringlet) {
+
+}
+
+function toVideoContent(userid, stringlet) {
+
+}
+
+function toURLContent(userid, stringlet) {
+
 }
 
 /*

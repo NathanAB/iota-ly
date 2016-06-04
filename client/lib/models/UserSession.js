@@ -98,10 +98,10 @@ var UserSession = Backbone.Model.extend({
 
           if(res.status === 200) {
             logger.info('Content GET success.', res);
-            return resolve(res.body);
+            return resolve();
           } else {
             logger.error('Content GET failed.', res);
-            return reject(res.body);
+            return reject();
           }
         });
     });
@@ -109,10 +109,42 @@ var UserSession = Backbone.Model.extend({
   
   convertContent: function(string){
     
+    var iota = {};
+    
+    iota.type = 'STRING';
+    iota.half = false;
+    iota.content = decodeURI(string);
+    
+    return iota;
   },
   
   postContent: function(content) {
-    
+    var iota = self.convertContent(content);
+
+    return new Promise(function(resolve, reject) {
+
+      request
+        .post('/api/content')
+        .set('x-email', self.get('userEmail'))
+        .set('x-token', self.get('authToken'))
+        .send(iota)
+        .end(function(err, res) {
+            console.log(res);
+            if(err) {
+              logger.error('Post Iota errored.', err);
+              return reject(err);
+            }
+
+            if(res.status === 200) {
+              logger.info('Post iota success.');
+              self.getContent();
+              resolve(res.body);
+            } else {
+              logger.error('Post iota failed.', res);
+              reject(res.body);
+            }
+        });
+    });
   },
   
   editContent: function(content) {
