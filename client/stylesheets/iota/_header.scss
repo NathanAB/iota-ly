@@ -14,18 +14,18 @@
     height: 50px;
   }
 
-  .search-container {
+  .search-container, .post-container {
     position: relative;
     font-size: 18px;
     display: inline-block;
 
-    .fa-search {
+    .fa-search, .fa-plus {
       position: relative;
       left: 17px;
       width: 0px;
     }
 
-    .search-box {
+    .search-box, .post-box {
       height: 40px;
       margin-bottom: 0;
       margin-top: 5px;
@@ -42,7 +42,7 @@
     }
 
     &:hover {
-      .search-box {
+      .search-box, .post-box {
         width: 100%;
         transition: width 0.4s;
       }
