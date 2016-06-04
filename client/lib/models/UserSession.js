@@ -135,20 +135,20 @@ var UserSession = Backbone.Model.extend({
         .set('x-token', self.get('authToken'))
         .send(iota)
         .end(function(err, res) {
-            console.log(res);
-            if(err) {
-              logger.error('Post Iota errored.', err);
-              return reject(err);
-            }
+          console.log(res);
+          if(err) {
+            logger.error('Post Iota errored.', err);
+            return reject(err);
+          }
 
-            if(res.status === 200) {
-              logger.info('Post iota success.');
-              self.getContent();
-              resolve(res.body);
-            } else {
-              logger.error('Post iota failed.', res);
-              reject(res.body);
-            }
+          if(res.status === 200) {
+            logger.info('Post iota success.');
+            self.getContent();
+            resolve(res.body);
+          } else {
+            logger.error('Post iota failed.', res);
+            reject(res.body);
+          }
         });
     });
   },
