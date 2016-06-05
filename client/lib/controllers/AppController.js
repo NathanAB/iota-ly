@@ -106,7 +106,10 @@ var AppController = Marionette.Object.extend({
         this.iotaCollectionView = new IotaCollectionView({
           collection: iotaCollection
         });
+        
+        App.headerRegion.show(new HeaderView());
         App.mainRegion.show(this.iotaCollectionView);
+        $('#cover').fadeOut();
       })
       .catch(function(err) {
         // Show error and/or go to login

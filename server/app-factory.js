@@ -41,11 +41,6 @@ passport.use(new TokenStrategy({ usernameHeader: 'x-email', usernameField: 'emai
   });
 }));
 
-/* Routes */
-app.get('/*', function(req, res){
-  res.sendFile(path.join(__dirname + '/../public/index.html'));
-});
-
 app.post('/register', registerMW);
 app.post('/login', loginMW);
 
@@ -53,5 +48,10 @@ app.use('/api', passport.authenticate('token', { session: false }));
 app.get('/api/content', getContentMW);
 app.post('/api/content', postContentMW);
 app.delete('/api/content', deleteContentMW);
+
+/* Routes */
+app.get('/*', function(req, res){
+  res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
 
 module.exports = app;
